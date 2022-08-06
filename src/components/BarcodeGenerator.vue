@@ -11,7 +11,7 @@ const BarcodeValue = ref('');
 
         <input type="text" v-model="BarcodeValue" />
 
-        <button v-if="BarcodeValue">Save Barcode</button>
+        <button v-if="BarcodeValue">Save</button>
     </form>
 </template>
 
@@ -23,27 +23,31 @@ const BarcodeValue = ref('');
     flex-direction: column;
 }
 
-.form h2 {
-    color: mediumspringgreen;
-}
-
 button {
-    height: 40px;
-    width: 310px;
-    background-color: green;
-    color: white;
+    height: 4rem;
+    width: 31rem;
+    background-color: mediumaquamarine;
     border: none;
     border-radius: 0.5rem;
     font-size: medium;
     display: block;
     margin-top: 1.3rem;
+    color: #444;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 input {
-    height: 30px;
-    width: 300px;
-    padding: 5px;
+    height: 3rem;
+    width: 30rem;
+    padding: 0.5rem;
     font-size: 1rem;
-    border-radius: 7px;
+    border-radius: 0.7rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+}
+
+input:focus {
+    border-color: mediumaquamarine;
 }
 </style>
