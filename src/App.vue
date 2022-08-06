@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import VueBarCode from './components/VueBarCode.vue';
+import BarcodeGenerator from '@/components/BarcodeGenerator.vue';
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import VueBarCode from './components/VueBarCode.vue';
     </header>
 
     <main>
-        <VueBarCode />
+        <BarcodeGenerator />
     </main>
 </template>
 
