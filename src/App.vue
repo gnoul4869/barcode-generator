@@ -1,13 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import VueBarCode from './components/VueBarCode.vue';
+</script>
 
 <template>
     <header>
-        <h1>Barcode Generator</h1>
+        <h1 class="title">- Barcode Generator -</h1>
     </header>
 
     <main>
-        <hi>Hello world</hi>
+        <VueBarCode />
     </main>
 </template>
 
-<style scoped></style>
+<style>
+.title {
+    text-align: center;
+}
+</style>
