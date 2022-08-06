@@ -1,30 +1,53 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import JsBarcode from 'jsbarcode';
+import html2canvas from 'html2canvas';
 
-const barcode = ref(null);
+const barcodeContainer = ref(null);
+const barcodeSVG = ref(null);
 const barcodeValue = ref('');
 
+const error = ref('');
+
 watch(barcodeValue, (value) => {
-    if (barcode.value && value) {
-        JsBarcode(barcode.value, value, {
+    if (barcodeSVG.value && value) {
+        JsBarcode(barcodeSVG.value, value, {
             width: 3,
             height: 80,
+
             fontOptions: 'bold',
         });
     }
 });
+
+const submitHandler = async () => {
+    if (barcodeContainer.value) {
+        try {
+            const canvas = await html2canvas(barcodeContainer.value);
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = `barcode_${barcodeValue.value}.png`;
+            link.href = imgData;
+            link.click();
+        } catch (err) {
+            error.value = 'Oops, something went wrong';
+        }
+    }
+};
 </script>
 
 <template>
-    <form class="form">
+    <form class="form" @submit.prevent="submitHandler">
         <h3 v-if="!barcodeValue">Type to generate barcode</h3>
 
-        <svg v-show="barcodeValue" ref="barcode"></svg>
+        <div ref="barcodeContainer" class="barcodeContainer">
+            <svg v-show="barcodeValue" ref="barcodeSVG"></svg>
+        </div>
 
         <input type="text" v-model="barcodeValue" />
 
-        <button v-if="barcodeValue">Save</button>
+        <button v-if="barcodeValue" type="submit">Save</button>
+        <h4 v-if="error" class="error">{{ error }}</h4>
     </form>
 </template>
 
@@ -34,10 +57,6 @@ watch(barcodeValue, (value) => {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-
-svg {
-    margin-bottom: 4rem;
 }
 
 button {
@@ -61,10 +80,15 @@ input {
     font-size: 1rem;
     border-radius: 0.7rem;
     outline: none;
+    margin-top: 1rem;
     transition: border-color 0.2s ease-in-out;
 }
 
 input:focus {
     border-color: mediumaquamarine;
+}
+
+.error {
+    color: tomato;
 }
 </style>
