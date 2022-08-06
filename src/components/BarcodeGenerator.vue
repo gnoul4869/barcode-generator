@@ -1,16 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import JsBarcode from 'jsbarcode';
 
-const BarcodeValue = ref('');
+const barcode = ref(null);
+const barcodeValue = ref('');
+
+watch(barcodeValue, (value) => {
+    if (barcode.value && value) {
+        JsBarcode(barcode.value, value, {
+            width: 3,
+            height: 80,
+            fontOptions: 'bold',
+        });
+    }
+});
 </script>
 
 <template>
     <form class="form">
-        <h3>Type to generate barcode</h3>
+        <h3 v-if="!barcodeValue">Type to generate barcode</h3>
 
-        <input type="text" v-model="BarcodeValue" />
+        <svg v-show="barcodeValue" ref="barcode"></svg>
 
-        <button v-if="BarcodeValue">Save</button>
+        <input type="text" v-model="barcodeValue" />
+
+        <button v-if="barcodeValue">Save</button>
     </form>
 </template>
 
@@ -20,6 +34,10 @@ const BarcodeValue = ref('');
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+svg {
+    margin-bottom: 4rem;
 }
 
 button {

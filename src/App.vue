@@ -16,5 +16,6 @@ import BarcodeGenerator from '@/components/BarcodeGenerator.vue';
 .title {
     text-align: center;
     color: mediumaquamarine;
+    margin-bottom: 5rem;
 }
 </style>
