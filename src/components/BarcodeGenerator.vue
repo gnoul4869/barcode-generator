@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import VueBarCode from '@chenfengyuan/vue-barcode';
 import { ref } from 'vue';
 
 const BarcodeValue = ref('');
@@ -7,7 +6,7 @@ const BarcodeValue = ref('');
 
 <template>
     <form class="form">
-        <h2>Type to generate</h2>
+        <h3>Type to generate barcode</h3>
 
         <input type="text" v-model="BarcodeValue" />
 
